@@ -79,6 +79,7 @@ async function findCodeKeymapTemplate (installationToken, repository, branch) {
   // (a limitation of GitHub's repo contents API).
   const { data: directory } = await fetchFile(installationToken, repository, 'config', { branch })
   const template = directory.find(file => file.name.toLowerCase().endsWith('.keymap.template'))
+  console.log('found template', template);
 
   if (template) {
     const { data: content } = await fetchFile(installationToken, repository, template.path, { branch, raw: true })

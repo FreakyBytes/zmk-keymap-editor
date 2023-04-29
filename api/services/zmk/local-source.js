@@ -41,6 +41,12 @@ function findKeymapFile () {
   return files.find(file => file.endsWith('.keymap'))
 }
 
+function loadTemplate () {
+  const files = fs.readdirSync(path.join(ZMK_PATH, 'config'))
+  const tplFile = files.find(file => file.endsWith('.keymap.template'))
+  return tplFile ? fs.readFileSync(path.join(ZMK_PATH, 'config/', tplFile)).toString() : null
+}
+
 function exportKeymap (generatedKeymap, flash, callback) {
   const keymapPath = path.join(ZMK_PATH, 'config')
   const keymapFile = findKeymapFile()
@@ -62,5 +68,6 @@ module.exports = {
   loadKeycodes,
   loadLayout,
   loadKeymap,
-  exportKeymap
+  exportKeymap,
+  loadTemplate,
 }
